@@ -513,17 +513,17 @@ invalid elements are treated as zeros."
              (hours (abs (string-to-number (or (pop revtokens) "0")))))
         (* sign (+ (* 60 60 hours) (* 60 minutes) seconds))))))
 
-(defun emms-seek-forward ()
-  "Seek ten seconds forward."
-  (interactive)
+(defun emms-seek-forward (&optional arg)
+  "Seek ARG times ten seconds forward."
+  (interactive "P")
   (when emms-player-playing-p
-    (emms-player-seek emms-seek-seconds)))
+    (emms-player-seek (* (if (integerp arg) arg 1) emms-seek-seconds))))
 
-(defun emms-seek-backward ()
-  "Seek ten seconds backward."
-  (interactive)
+(defun emms-seek-backward (&optional arg)
+  "Seek ARG times ten seconds backward."
+  (interactive "P")
   (when emms-player-playing-p
-    (emms-player-seek (- emms-seek-seconds))))
+    (emms-player-seek (- (* (if (integerp arg) arg 1) emms-seek-seconds)))))
 
 (defun emms-show (&optional insertp)
   "Describe the current EMMS track in the minibuffer.
